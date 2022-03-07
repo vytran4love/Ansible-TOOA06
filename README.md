@@ -21,7 +21,7 @@ Please kindly remember that **DO NOT** commit on master branch. We should follow
 1. Clone repo to local machine by using command
 
 ```
-    git clone https://github.com/vytran4love/Ansible-TOAA05.git
+    git clone https://github.com/vytran4love/Ansible-TOAA06.git
 ```
 2. Checkout branch feature
 
