@@ -1,5 +1,7 @@
 ---
 - hosts: client
+  gather_facts: yes
+  become: yes
   tasks:
     - name: Test ping
       ping:
@@ -7,6 +9,8 @@
       command:
         cmd: ip a
 - hosts: server
+  gather_facts: yes
+  become: yes
   tasks:
     - name: Test ping
       ping:
