@@ -1,0 +1,16 @@
+---
+- hosts: client
+  tasks:
+    - name: Test ping
+      ping:
+    - name: Get ip
+      command:
+        cmd: ip a
+- hosts: server
+  tasks:
+    - name: Test ping
+      ping:
+    - name: Get ip
+      command:
+        cmd: ip a
+
