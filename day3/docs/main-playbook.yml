@@ -1,0 +1,31 @@
+---
+# Define host
+- hosts: "{{hostname}}"
+# Get all information  
+  gather_facts: yes
+# Root privileges
+  become: yes
+  pre_tasks:
+  - name: 'install python'
+    raw: sudo apt-get update && sudo apt-get -y install python3
+    tags: ['always']
+  tasks:
+  - name: ping
+    action: ping
+    tags: "check-ping"
+  - name: show user
+    shell: |
+      pwd
+      whoami
+      mkdir abc
+      ls -lart
+    tags: "show-user"
+    ignore_errors: yes
+    become_user: vagrant
+  - name: show user root
+    command: touch /home/vagrant/abc/text.txt
+  roles:
+    - role: external.nginx-roles
+      vars:
+        ansible_python_interpreter: "/usr/bin/python3"
+        nginx_status_enabled: "true"

@@ -1,0 +1,13 @@
+---
+- hosts: "{{hostname}}"
+  gather_facts: yes
+  become: yes
+  vars:
+    hostname: "all"
+  pre_tasks:
+    - name: "Install python"
+      raw: sudo apt-get update && apt-get install -y python3
+      tags: ['always']
+  tasks:
+  - name: "Check ping"
+    ping:

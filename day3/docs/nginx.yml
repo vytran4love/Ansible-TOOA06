@@ -1,0 +1,41 @@
+---
+- hosts: "{{hostname}}"
+  gather_facts: true
+  become: true
+
+  tasks:
+  - name: 'Check connection'
+    ping:
+    become_user: www-data
+  - name: Install nginx
+    apt:
+      name: nginx
+      state: present
+    notify: start nginx
+  - name: start nginx
+    systemd:
+      name: nginx
+      state: started
+      enabled: true    
+  - name: 'Check connection 2'
+    ping:
+    notify: start nginx
+
+  handlers:
+  - name: start nginx
+    systemd:
+      name: nginx
+      state: started
+      enabled: true
+
+  post_tasks:
+  - name: "Check nginx status"
+    shell: "{{item}}"
+    with_items:
+    - mkdir /home/vagrant/ansible02
+    - cd /home/vagrant/ansible02 && touch abc.txt
+    - echo user_vagrant > /home/vagrant/ansible02/abc.txt
+    become_user: vagrant
+    ignore_errors: yes
+  - name: "Show user"
+    command: "whoami"
