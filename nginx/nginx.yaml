@@ -1,0 +1,7 @@
+---
+- name: ansible playbook for installing nginx
+  hosts: nginx
+  become: yes
+  
+  roles:
+    - role: nginx

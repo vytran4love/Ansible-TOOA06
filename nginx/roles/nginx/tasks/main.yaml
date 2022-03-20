@@ -1,0 +1,19 @@
+## nginx
+---
+  - name: 'Check connection'
+    ping:
+    become_user: www-data
+
+  - name: "apt-get update"
+    apt:
+      update_cache: yes
+      cache_valid_time: 3600
+  
+  - name: "install nginx"
+    apt:
+      name: ['nginx']
+      state: latest
+  
+  - name: 'Check connection 2'
+    ping:
+    notify: start nginx
