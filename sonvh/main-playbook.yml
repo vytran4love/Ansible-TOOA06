@@ -1,0 +1,13 @@
+---
+# Define host
+#- hosts: "{{hostname}}"
+- hosts: nginx
+# Get all information  
+  gather_facts: yes
+# Root privileges
+  become: yes
+  roles:
+    - role: ansible-role-nginx
+      vars:
+        ansible_python_interpreter: "/usr/bin/python3"
+        nginx_status_enabled: "true"
