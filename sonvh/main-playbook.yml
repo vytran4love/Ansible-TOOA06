@@ -3,11 +3,24 @@
 #- hosts: "{{hostname}}"
 - hosts: nginx
 # Get all information  
-  gather_facts: yes
+  gather_facts: true
 # Root privileges
   become: yes
   roles:
-    - role: ansible-role-nginx
+    - role: external.nginx-roles
       vars:
-        ansible_python_interpreter: "/usr/bin/python3"
+        ansible_python_interpreter: "/usr/bin/python"
         nginx_status_enabled: "true"
+  tasks:
+  - name: Creates directry
+    file:
+      path: /var/www/nginx.svms.tk
+
+      state: directory
+  - name: 'copy file index'
+    copy:
+       src: /home/sonvh/Ansible-TOOA06/sonvh/index/
+       dest: /var/www/nginx.svms.tk
+       owner: root
+       group: root
+       mode: 0644
