@@ -15,12 +15,12 @@
   tasks:
   - name: "Check directory"
     stat:
-      path: /var/www/nginx.svms.tk
+    path: /var/www/nginx.svms.tk
     register: index_folder
 
   - name: "echo if directory already existed"
     debug:
-      msg: "the nginx.svms.tk directory is already existed"
+    msg: "the directory is already existed"
     when: index_folder.stat.exists
 
   - name: "Creates directry"
@@ -30,7 +30,7 @@
       mode: 0755
       owner: root
       group: root
-    when: index_folder.stat.exists == false
+      when: index_folder.stat.exists == false
       
   - name: 'copy file index'
     copy:
