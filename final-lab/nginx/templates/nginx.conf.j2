@@ -1,0 +1,29 @@
+user www-data;
+worker_processes auto ;
+
+error_log  {{ nginx_log_dir }}/error.log {{ nginx_error_log_level }};
+pid        {{ nginx_pid_file }};
+
+worker_rlimit_nofile {{ nginx_worker_rlimit_nofile }};
+
+events {
+    worker_connections {{ nginx_worker_connections }};
+}
+
+http {
+	default_type  application/octet-stream;
+	access_log  {{ nginx_log_dir }}/access.log;
+	keepalive_timeout {{ keepalive_timeout }};
+	send_timeout {{ send_timeout }};
+	client_body_timeout {{ client_body_timeout }};
+	client_header_timeout {{ client_header_timeout }};
+	proxy_send_timeout {{ proxy_send_timeout }};
+	proxy_read_timeout {{ proxy_read_timeout }};
+
+	gzip {{ nginx_gzip }};
+	gzip_types  text/css text/javascript application/javascript;
+
+	include /etc/nginx/mime.types;
+	include /etc/nginx/conf.d/*.conf;
+	include /etc/nginx/sites-enabled/*;
+}

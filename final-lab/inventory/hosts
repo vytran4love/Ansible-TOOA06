@@ -1,0 +1,2 @@
+[server]
+192.168.224.135 ansible_user="root" ansible_password="Ansible@2022"

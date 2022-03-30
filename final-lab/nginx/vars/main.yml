@@ -1,0 +1,21 @@
+---
+# vars file for nginx
+nginx_conf_dir: "/etc/nginx"
+nginx_server_name: "localhost"
+nginx_service_name: "nginx"
+nginx_user: "nginx"
+nginx_group: "nginx"
+nginx_pid_file: "/var/run/nginx.pid"
+nginx_worker_connections: 1024
+nginx_worker_rlimit_nofile: 1024
+nginx_log_dir: "/var/log/nginx"
+nginx_error_log_level: "error"
+nginx_gzip: "on"
+nginx_start_service: true
+nginx_start_at_boot: true
+keepalive_timeout: 600
+send_timeout: 600
+client_body_timeout: 600
+client_header_timeout: 600
+proxy_send_timeout: 600
+proxy_read_timeout: 600
