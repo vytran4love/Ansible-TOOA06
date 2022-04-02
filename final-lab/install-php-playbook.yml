@@ -1,0 +1,8 @@
+---
+- hosts: server
+  user: "{{ ansible_ssh_user }}"
+  become_method: sudo
+  become: true
+  gather_facts: True
+  roles:
+  - php
