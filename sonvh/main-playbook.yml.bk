@@ -6,12 +6,18 @@
   gather_facts: true
 # Root privileges
   become: yes
+  roles:
+    - role: external.nginx-roles
+      vars:
+        ansible_python_interpreter: "/usr/bin/python"
+        nginx_status_enabled: "true"
+
   tasks:
   - name: "Check directory"
     stat:
       path: /var/www/nginx.svms.tk
     register: index_folder
-  
+
   - name: "echo if directory already existed"
     debug:
       msg: "the nginx.svms.tk directory is already existed"
@@ -26,15 +32,11 @@
       group: root
     when: index_folder.stat.exists == false
       
-  - name: 'copy file'
+  - name: 'copy file index'
     copy:
        src: /home/sonvh/Ansible-TOOA06/sonvh/index/
        dest: /var/www/nginx.svms.tk
        owner: root
        group: root
        mode: 0644
-  
-  roles:
-    - external.nginx-roles
-    - external.php
-   
+
